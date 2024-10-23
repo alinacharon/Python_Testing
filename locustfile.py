@@ -8,7 +8,7 @@ class WebsiteUser(HttpUser):
     def on_start(self):
         self.client.post("/showSummary", data={"email": "john@simplylift.co"})
 
-    @task(1)
+    @task(5)
     def index(self):
         self.client.get("/")
 
@@ -28,7 +28,7 @@ class WebsiteUser(HttpUser):
             else:
                 response.success()
 
-    @task(4)
+    @task(3)
     def purchase_places(self):
         competitions = ["Spring Festival", "Fall Classic"] 
         clubs = ["Simply Lift", "Iron Temple", "She Lifts"]
@@ -45,6 +45,6 @@ class WebsiteUser(HttpUser):
             else:
                 response.success()
 
-    @task(1)
+    @task(5)
     def logout(self):
         self.client.get("/logout")
