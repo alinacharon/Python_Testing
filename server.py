@@ -80,7 +80,7 @@ def purchasePlaces():
         return render_template('welcome.html', club=club, competitions=competitions)
 
     if placesRequired > available_places or placesRequired > 12 or placesRequired > points:
-        flash("There's not enough space or points for your booking. Please note that you can't take more than 12 places.")
+        flash("There is not enough space or points for your booking. Please note that you can't take more than 12 places.")
         return render_template('welcome.html', club=club, competitions=competitions)
 
     # Update
