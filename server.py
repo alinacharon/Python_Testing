@@ -3,16 +3,23 @@ from flask import Flask,render_template,request,redirect,flash,url_for
 
 
 def loadClubs():
-    with open('clubs.json') as c:
-         listOfClubs = json.load(c)['clubs']
-         return listOfClubs
+    try:
+        with open('clubs.json') as c:
+            listOfClubs = json.load(c)['clubs']
+            return listOfClubs
+    except (FileNotFoundError, json.JSONDecodeError):
+        flash("No data of clubs found.")
+        return []
 
 
 def loadCompetitions():
-    with open('competitions.json') as comps:
-         listOfCompetitions = json.load(comps)['competitions']
-         return listOfCompetitions
-
+    try:
+        with open('competitions.json') as comps:
+            listOfCompetitions = json.load(comps)['competitions']
+            return listOfCompetitions
+    except (FileNotFoundError, json.JSONDecodeError):
+        flash("No data of competitions found.")
+        return []
 
 app = Flask(__name__)
 app.secret_key = 'something_special'
