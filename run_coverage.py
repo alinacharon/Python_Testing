@@ -9,16 +9,15 @@ def run_tests_with_coverage():
         source=['.'],
         omit=[
             '*/venv/*',
-            '*/site-packages/*'
+            '*/site-packages/*',
+            'locustfile.py',            
+            'run_coverage.py'  
         ]
     )
 
     cov.start()
 
-    pytest.main(['-v',
-                 'tests/functional/test_functional.py',
-                 'tests/integration/test_integration.py',
-                 'tests/unit/test_unit.py'])
+    pytest.main(['-v'])
 
     cov.stop()
     cov.save()
