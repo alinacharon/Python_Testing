@@ -31,21 +31,29 @@ clubs = loadClubs()
 def index():
     return render_template('index.html')
 
-@app.route('/showSummary',methods=['POST'])
+@app.route('/showSummary', methods=['POST'])
 def showSummary():
-    club = [club for club in clubs if club['email'] == request.form['email']][0]
-    return render_template('welcome.html',club=club,competitions=competitions)
+    email = request.form.get('email')
+    club = next((club for club in clubs if club['email'] == email), None)
+    if club is None:
+        flash("Email not found.")
+        return redirect(url_for('index'))
+    return render_template('welcome.html', club=club, competitions=competitions)
 
 
 @app.route('/book/<competition>/<club>')
-def book(competition,club):
-    foundClub = [c for c in clubs if c['name'] == club][0]
+def book(competition, club):
+    foundClub = next((c for c in clubs if c['name'] == club), None)
+    if not foundClub:
+        flash("Club not found.")
+        return redirect(url_for('index'))
     foundCompetition = [c for c in competitions if c['name'] == competition][0]
     if foundClub and foundCompetition:
-        return render_template('booking.html',club=foundClub,competition=foundCompetition)
+        return render_template('booking.html', club=foundClub, competition=foundCompetition)
     else:
         flash("Something went wrong-please try again")
         return render_template('welcome.html', club=club, competitions=competitions)
+
 
 
 @app.route('/purchasePlaces',methods=['POST'])
