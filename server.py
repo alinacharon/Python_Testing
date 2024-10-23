@@ -91,7 +91,18 @@ def purchasePlaces():
     return render_template('welcome.html', club=club, competitions=competitions)
 
 
-# TODO: Add route for points display
+@app.route('/points')
+def points_view():
+    clubs_with_points = loadClubs()
+    if not clubs_with_points:
+        flash("No clubs found.")
+        return redirect(url_for('index'))
+
+    points_data = [{'name': club['name'], 'points': club.get(
+        'points', 0)} for club in clubs_with_points]
+
+    return render_template('points.html', clubs=points_data)
+
 
 
 @app.route('/logout')
