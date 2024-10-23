@@ -1,51 +1,63 @@
 # gudlift-registration
 
-1. Why
+1. About the Project
 
+    This is a proof of concept (POC) project demonstrating a lightweight version of our competition booking platform. The aim is to keep things as simple as possible and use user feedback for iterations.
 
-    This is a proof of concept (POC) project to show a light-weight version of our competition booking platform. The aim is the keep things as light as possible, and use feedback from the users to iterate.
-
-2. Getting Started
+2. Technologies
 
     This project uses the following technologies:
 
     * Python v3.x+
-
     * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-
-        Whereas Django does a lot of things for us out of the box, Flask allows us to add only what we need. 
-     
-
     * [Virtual environment](https://virtualenv.pypa.io/en/stable/installation.html)
-
-        This ensures you'll be able to install the correct packages without interfering with Python on your machine.
-
-        Before you begin, please ensure you have this installed globally. 
-
 
 3. Installation
 
-    - After cloning, change into the directory and type <code>virtualenv .</code>. This will then set up a a virtual python environment within that directory.
+    - Clone the repository and navigate to the project directory
+    - Create a virtual environment: `virtualenv .`
+    - Activate the virtual environment: `source bin/activate`
+    - Install dependencies: `pip install -r requirements.txt`
+    - Set the FLASK_APP environment variable: `export FLASK_APP=server.py`
+    - Run the application: `flask run` or `python -m flask run`
 
-    - Next, type <code>source bin/activate</code>. You should see that your command prompt has changed to the name of the folder. This means that you can install packages in here without affecting affecting files outside. To deactivate, type <code>deactivate</code>
+4. Project Structure
 
-    - Rather than hunting around for the packages you need, you can install in one step. Type <code>pip install -r requirements.txt</code>. This will install all the packages listed in the respective file. If you install a package, make sure others know by updating the requirements.txt file. An easy way to do this is <code>pip freeze > requirements.txt</code>
+    - `server.py`: Main Flask application file
+    - `clubs.json`: JSON file containing club data
+    - `competitions.json`: JSON file containing competition data
+    - `templates/`: Directory containing HTML templates
+    - `tests/`: Directory containing test files
+        - `functional/`: Functional tests
+        - `integration/`: Integration tests
+        - `unit/`: Unit tests
 
-    - Flask requires that you set an environmental variable to the python file. However you do that, you'll want to set the file to be <code>server.py</code>. Check [here](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application) for more details
+5. Main Features
 
-    - You should now be ready to test the application. In the directory, type either <code>flask run</code> or <code>python -m flask run</code>. The app should respond with an address you should be able to go to using your browser.
+    - Club and competition data loaded from JSON files
+    - User authentication via email
+    - Booking system for competitions
+    - Points system for clubs
+    - View available points for each club
 
-4. Current Setup
+6. Testing
 
-    The app is powered by [JSON files](https://www.tutorialspoint.com/json/json_quick_guide.htm). This is to get around having a DB until we actually need one. The main ones are:
-     
-    * competitions.json - list of competitions
-    * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
+    The project includes unit, integration, and functional tests. To run the tests with coverage:
 
-5. Testing
+    ```
+    python run_coverage.py
+    ```
 
-    You are free to use whatever testing framework you like-the main thing is that you can show what tests you are using.
+    This will generate a coverage report.
 
-    We also like to show how well we're testing, so there's a module called 
-    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
+7. Development
 
+    The application runs in debug mode by default. You can modify this in the `server.py` file.
+
+8. Contributing
+
+    Please update the `requirements.txt` file if you add any new packages:
+
+    ```
+    pip freeze > requirements.txt
+    ```
