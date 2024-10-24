@@ -11,7 +11,8 @@ def run_tests_with_coverage():
             '*/venv/*',
             '*/site-packages/*',
             'locustfile.py',            
-            'run_coverage.py'  
+            'run_coverage.py',
+            '*/tests/*'  
         ]
     )
 
