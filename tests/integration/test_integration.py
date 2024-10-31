@@ -53,12 +53,12 @@ def test_purchase_places(client):
 
 def test_purchase_too_much_places(client):
     response = client.post('/purchasePlaces', data={
-        'competition': 'Spring Festival',
+        'competition': 'Fall Classic',
         'club': 'Simply Lift',
-        'places': '20'
+        'places': '10'
     })
     assert response.status_code == 200
-    assert b'There is not enough space or points for your booking' in response.data
+    assert b'There are not enough spaces or points for your booking' in response.data
 
 
 def test_purchase_negative_amount_places(client):
@@ -68,7 +68,16 @@ def test_purchase_negative_amount_places(client):
         'places': '-5'
     })
     assert response.status_code == 200
-    assert b'The purchase quantity is invalid' in response.data
+    assert b'The number of places for booking is invalid' in response.data
+    
+def test_purchase_more_than_allowed_places(client):
+    response = client.post('/purchasePlaces', data={
+        'competition': 'Spring Festival',
+        'club': 'Simply Lift',
+        'places': '13'
+    })
+    assert response.status_code == 200
+    assert b'You can&#39;t book more than 12 places.' in response.data
 
 
 def test_logout(client):

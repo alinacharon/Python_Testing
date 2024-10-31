@@ -76,14 +76,19 @@ def purchasePlaces():
     points = int(club['points'])
 
     if placesRequired <= 0:
-        flash("The purchase quantity is invalid. It cannot be negative or zero.")
+        flash("The number of places for booking is invalid. It cannot be negative or zero. Please choose a different number of places.")
+        return render_template('welcome.html', club=club, competitions=competitions)
+    if placesRequired > 12:
+        flash("You can't book more than 12 places. Please choose a different number of places")
+        return render_template('welcome.html', club=club, competitions=competitions)
+    if placesRequired > available_places or placesRequired > points:
+        flash("There are not enough spaces or points for your booking. Please choose a different number of places.")
+        return render_template('welcome.html', club=club, competitions=competitions)
+    if placesRequired > 12:
+        flash("You can't book more than 12 places.")
         return render_template('welcome.html', club=club, competitions=competitions)
 
-    if placesRequired > available_places or placesRequired > 12 or placesRequired > points:
-        flash("There is not enough space or points for your booking. Please note that you can't take more than 12 places.")
-        return render_template('welcome.html', club=club, competitions=competitions)
-
-    # Update
+    # Update points and number of places
     competition['numberOfPlaces'] = available_places - placesRequired
     club['points'] = points - placesRequired
 
