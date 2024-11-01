@@ -6,3 +6,4 @@ lib
 __pycache__
 .idea/
 .coverage
+.DS_Store
