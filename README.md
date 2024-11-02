@@ -28,7 +28,6 @@
     - `competitions.json`: JSON file containing competition data
     - `templates/`: Directory containing HTML templates
     - `tests/`: Directory containing test files
-        - `functional/`: Functional tests
         - `integration/`: Integration tests
         - `unit/`: Unit tests
 
@@ -42,7 +41,7 @@
 
 6. Testing
 
-    The project includes unit, integration, and functional tests. To run the tests with coverage:
+    The project includes unit and integration tests. To run the tests with coverage:
 
     ```
     python run_coverage.py
