@@ -80,6 +80,7 @@ def test_showSummary_club_not_found(client, test_clubs):
         assert response.status_code == 302
         assert response.location == '/'
 
+
 @patch('builtins.open', side_effect=FileNotFoundError)
 def test_load_clubs_file_not_found(mock_open):
     with patch('os.path.exists'):
@@ -87,11 +88,13 @@ def test_load_clubs_file_not_found(mock_open):
             clubs = loadClubs()
             assert len(clubs) == 0
             mock_flash.assert_called_once_with("No data of clubs found.")
-            
+
+
 @patch('builtins.open', side_effect=FileNotFoundError)
 def test_load_competition_file_not_found(mock_open):
     with patch('os.path.exists'):
         with patch('server.flash') as mock_flash:
             competitions = loadCompetitions()
             assert len(competitions) == 0
-            mock_flash.assert_called_once_with("No data of competitions found.")        
+            mock_flash.assert_called_once_with(
+                "No data of competitions found.")
