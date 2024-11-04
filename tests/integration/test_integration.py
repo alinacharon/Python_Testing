@@ -8,7 +8,8 @@ def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
         yield client
-                
+
+
 def test_index(client):
     response = client.get('/')
     assert response.status_code == 200
@@ -25,9 +26,9 @@ def test_showSummary_valid_email(client):
 def test_showSummary_invalid_email(client):
     response = client.post('/showSummary', data={'email': 'invalid@email.com'})
     assert response.status_code == 302
-    assert urlparse(response.headers['Location']).path == '/'
+    assert response.location == '/'
 
-    
+
 def test_book(client):
     response = client.get('/book/Spring Festival/Simply Lift')
     assert response.status_code == 200
@@ -37,7 +38,7 @@ def test_book(client):
 def test_book_invalid_club(client):
     response = client.get('/book/Spring Festival/Invalid Club')
     assert response.status_code == 302
-    assert urlparse(response.headers['Location']).path == '/'
+    assert response.location == '/'
 
 
 def test_purchase_places(client):
@@ -68,7 +69,8 @@ def test_purchase_negative_amount_places(client):
     })
     assert response.status_code == 200
     assert b'The number of places for booking is invalid' in response.data
-    
+
+
 def test_purchase_more_than_allowed_places(client):
     response = client.post('/purchasePlaces', data={
         'competition': 'Spring Festival',
@@ -78,13 +80,14 @@ def test_purchase_more_than_allowed_places(client):
     assert response.status_code == 200
     assert b'You can&#39;t book more than 12 places.' in response.data
 
+
 def test_points_view_with_clubs(client):
     response = client.get('/points')
     assert response.status_code == 200
-    assert b'Points' in response.data 
-    
+    assert b'Points' in response.data
+
 
 def test_logout(client):
     response = client.get('/logout')
     assert response.status_code == 302
-    assert urlparse(response.headers['Location']).path == '/'
+    assert response.location == '/'
